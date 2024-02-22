@@ -22,6 +22,7 @@ module.exports = {
             type: ApplicationCommandOptionType.String,
         },
     ],
+    // Won't execute if checks aren't met
     permissionsRequired: [PermissionFlagsBits.Administrator],
     botPermissions: [PermissionFlagsBits.Administrator],
 
