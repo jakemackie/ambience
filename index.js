@@ -1,29 +1,7 @@
-const { 
-    Client, 
-    GatewayIntentBits 
-} = require('discord.js');
+const { client, token } = require('./client.js');
 
-class Ambience extends Client {
-    constructor(options) {
-        super(options);
-
-        // Additional setup or customization can be done here
-    }
-
-    // You can add more methods or override existing ones here
-}
-
-const client = new Ambience({
-    intents: [
-        GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,
-        GatewayIntentBits.GuildVoiceStates,
-    ],
+client.on('ready', () => {
+    console.log(`${client.user.tag} is ready for blastoff! 🚀 (${client.user.id})`);
 });
 
-client.once('ready', () => {
-    console.log('Bot is ready!');
-});
-
-client.login('YOUR_BOT_TOKEN');
+client.login(token);
