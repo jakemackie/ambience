@@ -1,13 +1,22 @@
-const { client, token } = require('./clients/')
+const {
+  client: AmbienceRelease,
+  token: AmbienceToken,
+} = require('../clients/release')
 
-function chosenClient(version) {
-  if (version === '1') {
-    return { client, token }
-  } else if (version === '2') {
-    return { client, token }
-  } else {
-    console.log('Invalid selection. Please try again.')
+const {
+  client: AmbienceBeta,
+  token: AmbienceBetaToken,
+} = require('../clients/beta')
+
+function getClient(version) {
+  switch (version) {
+    case 'Release':
+      console.log('Ambience (Release) has been loaded.')
+      return { client: AmbienceRelease, token: AmbienceToken }
+    case 'Beta':
+      console.log('Ambience (Beta) has been loaded.')
+      return { client: AmbienceBeta, token: AmbienceBetaToken }
   }
 }
 
-module.exports = { client: chosenClient }
+module.exports = { getClient }

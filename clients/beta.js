@@ -22,4 +22,4 @@ const client = new AmbienceBeta({
   ],
 })
 
-module.exports = { client, token: this.token }
+module.exports = { client, token: client.token }
