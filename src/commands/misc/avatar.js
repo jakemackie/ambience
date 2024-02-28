@@ -18,8 +18,13 @@ module.exports = {
         let userAvatar = user.displayAvatarURL({ dynamic: true, size: 512 });
 
         const embed = new EmbedBuilder()
+            .setAuthor({
+                name: client.user.username,
+                iconURL: client.user.displayAvatarURL(),
+            })
             .setDescription(`${user}'s avatar`)
             .setImage(userAvatar)
+            .setColor(client.theme.colour)
             .setTimestamp();
 
         const button = new ButtonBuilder()

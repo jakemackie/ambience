@@ -1,9 +1,18 @@
 require('dotenv').config();
-const { Client, IntentsBitField } = require('discord.js');
+const { Client, Collection, IntentsBitField } = require('discord.js');
 const eventHandler = require('./handlers/eventHandler');
 
+class Ambience extends Client {
+    constructor(options) {
+        super(options);
+        this.theme = {
+            colour: 0x69bf8e,
+        };
+        this.commands = new Collection();
+    }
+}
 
-const client = new Client({
+const client = new Ambience({
     intents: [
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMembers,

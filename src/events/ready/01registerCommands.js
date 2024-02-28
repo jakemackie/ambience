@@ -11,6 +11,11 @@ module.exports = async (client) => {
             testServer,
         );
 
+        // for (const cmd of applicationCommands.cache.values()) {
+        //     await applicationCommands.delete(cmd.id);
+        //     console.log(`🗑 Deleted command "${cmd.name}".`);
+        // }
+
         for (const localCommand of localCommands) {
             const { name, description, options } = localCommand;
 
