@@ -6,7 +6,7 @@ class Ambience extends Client {
     constructor(options) {
         super(options);
         this.theme = {
-            colour: 0x69bf8e,
+            colour: 0x51bf77,
         };
         this.commands = new Collection();
     }

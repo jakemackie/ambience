@@ -2,7 +2,6 @@ const os = require('os');
 const si = require('systeminformation');
 const bytes = require('bytes');
 
-const embedColor = require('../../models/theme.js');
 const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
@@ -22,7 +21,7 @@ module.exports = {
                     name: client.user.username,
                     iconURL: client.user.displayAvatarURL(),
                 })
-                .setColor(embedColor)
+                .setColor(client.theme.colour)
                 .setTitle(`${client.user.username} Statistics`)
                 .addFields(
                     {

@@ -4,8 +4,6 @@ const {
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder,
     ComponentType,
-    ApplicationCommandOptionType,
-    resolveColor,
 } = require('discord.js');
 
 module.exports = {
@@ -76,10 +74,6 @@ module.exports = {
         const row = new ActionRowBuilder().addComponents(select);
 
         const Embed = new EmbedBuilder()
-            .setAuthor({
-                name: client.user.username,
-                iconURL: client.user.displayAvatarURL(),
-            })
             .setTitle('Sound Catalogue')
             .setDescription('Select a sound from the catalogue below')
             .setColor(client.theme.colour);
@@ -111,9 +105,23 @@ module.exports = {
             let selection = interaction.values[0];
 
             // Referencing the previous embed
-            Embed.setDescription(
-                `Playing \`${selection}\` from our catalogue!`,
+            Embed.setTitle(null);
+            Embed.setDescription(`Now playing in \`<voice channel>\``);
+            const sound = sounds.find((sound) => sound.value === selection);
+            Embed.setFields(
+                {
+                    name: 'Sound',
+                    value: `${sound.emoji} ${sound.name}`,
+                },
+                {
+                    name: 'Description',
+                    value: sound.description,
+                },
             );
+            Embed.setFooter({
+                text: 'Requested by ' + interaction.user.username,
+                iconURL: interaction.user.displayAvatarURL(),
+            });
 
             await interaction.deferUpdate();
 
