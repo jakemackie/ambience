@@ -24,7 +24,7 @@ module.exports = {
             })
             .setDescription(`${user}'s avatar`)
             .setImage(userAvatar)
-            .setColor(client.theme.colour)
+            .setColor(client.theme.neutral)
             .setTimestamp();
 
         const button = new ButtonBuilder()

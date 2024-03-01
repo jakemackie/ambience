@@ -21,7 +21,7 @@ module.exports = {
                     name: client.user.username,
                     iconURL: client.user.displayAvatarURL(),
                 })
-                .setColor(client.theme.colour)
+                .setColor(client.theme.neutral)
                 .setTitle(`${client.user.username} Statistics`)
                 .addFields(
                     {

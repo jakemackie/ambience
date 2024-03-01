@@ -76,7 +76,7 @@ module.exports = {
         const Embed = new EmbedBuilder()
             .setTitle('Sound Catalogue')
             .setDescription('Select a sound from the catalogue below')
-            .setColor(client.theme.colour);
+            .setColor(client.theme.neutral);
 
         const response = await interaction.reply({
             embeds: [Embed],
@@ -93,8 +93,8 @@ module.exports = {
         collector.on('collect', async (interaction) => {
             if (interaction.user.id !== author.id) {
                 const Error = new EmbedBuilder()
-                    .setDescription('You cannot interact with this select menu')
-                    .setColor(client.theme.colour);
+                    .setDescription(`This interaction belongs to ${author}`)
+                    .setColor(client.theme.warning);
 
                 return interaction.reply({
                     embeds: [Error],
