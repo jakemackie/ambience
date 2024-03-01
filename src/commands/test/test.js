@@ -3,28 +3,15 @@ const {
     ActionRowBuilder,
     StringSelectMenuBuilder,
     StringSelectMenuOptionBuilder,
+    ComponentType,
     ApplicationCommandOptionType,
+    resolveColor,
 } = require('discord.js');
 
 module.exports = {
     testServer: true,
 
     callback: async (client, interaction) => {
-        let sound = interaction.options.getString('sound');
-
-        if (sound) {
-            if (sound !== 'rain') {
-                return interaction.reply({
-                    content: `We couldn't find \"\`${sound}\`\" in our catalogue, please try again.`,
-                    ephemeral: true,
-                });
-            }
-            return interaction.reply({
-                content: `Playing \"\`${sound}\`\" from our catalogue!`,
-                ephemeral: true,
-            });
-        }
-
         const select = new StringSelectMenuBuilder()
             .setCustomId('sound-select-menu')
             .setPlaceholder('Choose a sound');
@@ -32,36 +19,43 @@ module.exports = {
         // This is meant to represent looping through the sound catalogue
         let sounds = [
             {
+                emoji: '🌧️',
                 name: 'Rain',
-                description: 'Soft rain on a window.',
+                description: 'Soft rain on a window',
                 value: 'rain',
             },
             {
+                emoji: '🌩️',
                 name: 'Thunder',
                 description: 'Loud thunder outside',
                 value: 'thunder',
             },
             {
+                emoji: '🌬️',
                 name: 'Wind',
                 description: 'Strong wind blowing',
                 value: 'wind',
             },
             {
+                emoji: '🔥',
                 name: 'Fire',
                 description: 'Crackling fireplace',
                 value: 'fire',
             },
             {
+                emoji: '🦗',
                 name: 'Crickets',
                 description: 'Chirping crickets at night',
                 value: 'crickets',
             },
             {
+                emoji: '🐦',
                 name: 'Birds',
                 description: 'Singing birds in early morning',
                 value: 'birds',
             },
             {
+                emoji: '🌊',
                 name: 'Ocean',
                 description: 'Waves crashing on the shore',
                 value: 'ocean',
@@ -72,6 +66,7 @@ module.exports = {
         for (let sound of sounds) {
             select.addOptions(
                 new StringSelectMenuOptionBuilder()
+                    .setEmoji(sound.emoji)
                     .setLabel(sound.name)
                     .setDescription(sound.description)
                     .setValue(sound.value),
@@ -89,20 +84,48 @@ module.exports = {
             .setDescription('Select a sound from the catalogue below')
             .setColor(client.theme.colour);
 
-        await interaction.reply({
+        const response = await interaction.reply({
             embeds: [Embed],
             components: [row],
+        });
+
+        let author = interaction.user;
+
+        const collector = response.createMessageComponentCollector({
+            componentType: ComponentType.StringSelect,
+            time: 3_600_000,
+        });
+
+        collector.on('collect', async (interaction) => {
+            if (interaction.user.id !== author.id) {
+                const Error = new EmbedBuilder()
+                    .setDescription('You cannot interact with this select menu')
+                    .setColor(client.theme.colour);
+
+                return interaction.reply({
+                    embeds: [Error],
+                    ephemeral: true,
+                });
+            }
+
+            let selection = interaction.values[0];
+
+            // Referencing the previous embed
+            Embed.setDescription(
+                `Playing \`${selection}\` from our catalogue!`,
+            );
+
+            await interaction.deferUpdate();
+
+            select.setPlaceholder('Change the sound');
+            interaction.editReply({
+                embeds: [Embed],
+                components: [row],
+                ephereal: true,
+            });
         });
     },
 
     name: 'play',
     description: "Play a sound from the bot's catalogue",
-    options: [
-        {
-            name: 'sound',
-            description: 'Choose a sound from our catalogue',
-            type: ApplicationCommandOptionType.String,
-            required: false,
-        },
-    ],
 };
