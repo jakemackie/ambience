@@ -1,3 +1,4 @@
+const fs = require('fs');
 const {
     EmbedBuilder,
     ActionRowBuilder,
@@ -15,50 +16,9 @@ module.exports = {
             .setPlaceholder('Choose a sound');
 
         // This is meant to represent looping through the sound catalogue
-        let sounds = [
-            {
-                emoji: '🌧️',
-                name: 'Rain',
-                description: 'Soft rain on a window',
-                value: 'rain',
-            },
-            {
-                emoji: '🌩️',
-                name: 'Thunder',
-                description: 'Loud thunder outside',
-                value: 'thunder',
-            },
-            {
-                emoji: '🌬️',
-                name: 'Wind',
-                description: 'Strong wind blowing',
-                value: 'wind',
-            },
-            {
-                emoji: '🔥',
-                name: 'Fire',
-                description: 'Crackling fireplace',
-                value: 'fire',
-            },
-            {
-                emoji: '🦗',
-                name: 'Crickets',
-                description: 'Chirping crickets at night',
-                value: 'crickets',
-            },
-            {
-                emoji: '🐦',
-                name: 'Birds',
-                description: 'Singing birds in early morning',
-                value: 'birds',
-            },
-            {
-                emoji: '🌊',
-                name: 'Ocean',
-                description: 'Waves crashing on the shore',
-                value: 'ocean',
-            },
-        ];
+
+        let raw = fs.readFileSync(__dirname + '/data/example.json');
+        const sounds = JSON.parse(raw);
 
         // We loop through the sounds and add them to the select menu
         for (let sound of sounds) {
@@ -67,7 +27,7 @@ module.exports = {
                     .setEmoji(sound.emoji)
                     .setLabel(sound.name)
                     .setDescription(sound.description)
-                    .setValue(sound.value),
+                    .setValue(sound.key),
             );
         }
 
@@ -107,11 +67,11 @@ module.exports = {
             // Referencing the previous embed
             Embed.setTitle(null);
             Embed.setDescription(`Now playing in \`<voice channel>\``);
-            const sound = sounds.find((sound) => sound.value === selection);
+            const sound = sounds.find((sound) => sound.key === selection);
             Embed.setFields(
                 {
                     name: 'Sound',
-                    value: `${sound.emoji} ${sound.name}`,
+                    value: sound.name,
                 },
                 {
                     name: 'Description',
@@ -122,6 +82,7 @@ module.exports = {
                 text: 'Requested by ' + interaction.user.username,
                 iconURL: interaction.user.displayAvatarURL(),
             });
+            Embed.toJSON();
 
             await interaction.deferUpdate();
 

@@ -4,6 +4,7 @@ const getApplicationCommands = require('../../utils/getApplicationCommands');
 const getLocalCommands = require('../../utils/getLocalCommands');
 
 module.exports = async (client) => {
+    console.log(`Registering commands ${client.terminal.task}`);
     try {
         const localCommands = getLocalCommands();
         const applicationCommands = await getApplicationCommands(
@@ -58,4 +59,5 @@ module.exports = async (client) => {
     } catch (error) {
         console.log(`There was an error: ${error}`);
     }
+    console.log(`Commands registered ${client.terminal.complete}`);
 };

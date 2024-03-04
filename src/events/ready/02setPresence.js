@@ -1,7 +1,7 @@
 const { ActivityType } = require('discord.js');
 
 module.exports = async (client) => {
-    console.log('Setting presence');
+    console.log(`Setting presence ${client.terminal.task}`);
     client.user.setPresence({
         status: 'online',
         activities: [
@@ -12,5 +12,5 @@ module.exports = async (client) => {
             },
         ],
     });
-    console.log('Presence set');
+    console.log(`Presence set ${client.terminal.complete}`);
 };

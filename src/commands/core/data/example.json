@@ -1,0 +1,44 @@
+[
+    {
+        "emoji": "🌧️",
+        "name": "Rain",
+        "description": "Soft rain on a window",
+        "key": "rain"
+    },
+    {
+        "emoji": "🌩️",
+        "name": "Thunder",
+        "description": "Loud thunder outside",
+        "key": "thunder"
+    },
+    {
+        "emoji": "🌬️",
+        "name": "Wind",
+        "description": "Strong wind blowing",
+        "key": "wind"
+    },
+    {
+        "emoji": "🔥",
+        "name": "Fire",
+        "description": "Crackling fireplace",
+        "key": "fire"
+    },
+    {
+        "emoji": "🦗",
+        "name": "Crickets",
+        "description": "Chirping crickets at night",
+        "key": "crickets"
+    },
+    {
+        "emoji": "🐦",
+        "name": "Birds",
+        "description": "Singing birds in early morning",
+        "key": "birds"
+    },
+    {
+        "emoji": "🌊",
+        "name": "Ocean",
+        "description": "Waves crashing on the shore",
+        "key": "ocean"
+    }
+]
