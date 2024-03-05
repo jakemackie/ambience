@@ -50,6 +50,7 @@ module.exports = {
             time: 3_600_000,
         });
 
+        // Need to add command-specific collector
         collector.on('collect', async (interaction) => {
             if (interaction.user.id !== author.id) {
                 const Error = new EmbedBuilder()
