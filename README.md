@@ -1,7 +1,3 @@
-**Ambience Discord Bot**
-
-Welcome to Ambience, your go-to Discord bot for enhancing focus and productivity with ambient sounds. Ambience is part of a small ecosystem, developed alongside a web application, seamlessly integrating resources like ambient sounds sourced from the website. Designed to be user-friendly and entirely free, Ambience aims to create a conducive environment for concentration within Discord voice channels.
-
 ### Features
 
 -   **Ambient Sounds**: Ambience provides a curated selection of ambient sounds sourced from the companion web application, catering to various preferences for focus enhancement.
